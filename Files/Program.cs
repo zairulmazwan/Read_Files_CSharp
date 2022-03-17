@@ -11,31 +11,48 @@ namespace Files
             string fileName = "C:\\Users\\zm1142\\source\\repos\\Files\\Files\\data.csv";
 
             StreamReader reader = null;
-
+            List<List<string>> data = new List<List<string>>();
+            
             if (File.Exists(fileName))
             {
                 reader = new StreamReader(File.OpenRead(fileName));
-                List<string> data = new List<string>();
-
+               
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
                     var values = line.Split(',');
-                    
-                    foreach (var item in values)
+
+                    List<string> col = new List<string>();
+                    foreach (var i in values)
                     {
-                        data.Add(item);
-                        Console.Write(item);
-                        Console.Write(" ");
+                        col.Add(i);
+                        //Console.Write(item);
+                        //Console.Write(" ");
                     }
-                    Console.WriteLine();
+                    data.Add(col);
+                    //Console.WriteLine();
                 }
             }
             else
             {
                 Console.WriteLine("File does not exist");
             }
-       
+
+
+            printData(data);
+        }
+
+        public static void printData(List<List<string>> data)
+        {
+            foreach (var line in data)
+            {
+                foreach (var col in line) 
+                {
+                    Console.Write(col);
+                    Console.Write(" ");
+                }
+                Console.WriteLine();
+            }
         }
         
     }
